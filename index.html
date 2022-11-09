@@ -22,7 +22,7 @@ Thank you!
     <div class="carousel">
         <button class='flt-left' onclick="slideRight(this,0);"><i class="fa fa-circle-chevron-left" aria-hidden="true" style="color:red;font-size:25px"></i></button>
         <div class="row flt-left">
-         <div class="row-container">
+         <div class="row-container row-container1">
         <div class="card">
                 <div class="card-content">
                     <iframe src="https://www.youtube.com/embed/FEHbet4YX78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -91,7 +91,7 @@ Thank you!
       <div class="carousel">
           <button class='flt-left' onclick="slideRight(this,1);"><i class="fa fa-circle-chevron-left" aria-hidden="true" style="color:red;font-size:25px"></i></button>
           <div class="row flt-left">
-           <div class="row-container">
+           <div class="row-container row-container2">
           <div class="card">
                   <div class="card-content">
                       <iframe src="https://www.youtube.com/embed/4D9poUkjm5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -166,7 +166,7 @@ Thank you!
         <div class="carousel">
             <button class='flt-left' onclick="slideRight(this,2);"><i class="fa fa-circle-chevron-left" aria-hidden="true" style="color:red;font-size:25px"></i></button>
             <div class="row flt-left">
-             <div class="row-container">
+             <div class="row-container row-container3">
             <div class="card">
                     <div class="card-content">
                         <iframe src="https://www.youtube.com/embed/FEHbet4YX78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -234,7 +234,7 @@ Thank you!
           <div class="carousel">
               <button class='flt-left' onclick="slideRight(this,3);"><i class="fa fa-circle-chevron-left" aria-hidden="true" style="color:red;font-size:25px"></i></button>
               <div class="row flt-left">
-               <div class="row-container">
+               <div class="row-container row-container4">
               <div class="card">
                       <div class="card-content">
                           <iframe src="https://www.youtube.com/embed/FEHbet4YX78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -299,34 +299,28 @@ Thank you!
                 <div class="clear"></div>
             </div>
     <script>
-                /*
-        Author : Mohd Shibli
-        Year : 2017
-        */
 
         var right = [0,0,0,0];
-        var maxMargin;
+        var maxMargin=[];
         var jumpMargin = 150;
 
         function setWidth(){
         var boxwidth = document.querySelector(".card").offsetWidth;
         var displaywidth = document.querySelector(".row").offsetWidth;
         var displayheight = document.querySelector(".card").offsetHeight;
-        var children = document.querySelectorAll(".row-container > .card").length;
-        var outerboxwidth = children * boxwidth;
-        console.log(children,boxwidth,outerboxwidth,displaywidth);
         let x=document.querySelectorAll(".row-container");
         for (let i=0;i<x.length;i++){
-            x[i].style.width = outerboxwidth+"px";
+            var children = document.querySelectorAll(".row-container"+(i+1).toString()+" > .card").length;
+            x[i].style.width = children * boxwidth+"px";
+            maxMargin.push((children)*boxwidth - displaywidth);
         }
         document.querySelectorAll("button")[0].style.height = displayheight+"px";
         document.querySelectorAll("button")[1].style.height = displayheight+"px";
-        maxMargin = outerboxwidth - displaywidth;
         }
 
         function slideLeft(event,i){
         var rowcont = document.querySelectorAll(".row-container")[i];
-        if(right[i] <= -maxMargin){
+        if(right[i] <= -maxMargin[i]){
             event.preventDefault();
         }
         else{
@@ -340,7 +334,7 @@ Thank you!
         if(right[i]==0){
             event.preventDefault();
         }
-        else if(right[i] >= maxMargin){
+        else if(right[i] >= maxMargin[i]){
             event.preventDefault();
         }
         else{
